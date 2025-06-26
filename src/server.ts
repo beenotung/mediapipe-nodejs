@@ -6,9 +6,9 @@ import { Browser, chromium } from 'playwright'
 import type { DetectFaceLandmarksOptions } from './client'
 import { FaceLandmarkerResult } from '@mediapipe/tasks-vision'
 
-export type MediaPipeClient = Awaited<ReturnType<typeof startClient>>
+export type MediaPipeClient = Awaited<ReturnType<typeof startMediaPipeClient>>
 
-export async function startClient(options: {
+export interface StartMediaPipeClientOptions {
   port: number
   /** default: true */
   auto_install_playwright?: boolean
@@ -16,7 +16,11 @@ export async function startClient(options: {
   headless?: boolean
   /** auto launch chromium browser if no instance provided */
   browser?: Browser
-}) {
+}
+
+export async function startMediaPipeClient(
+  options: StartMediaPipeClientOptions,
+) {
   if (options.auto_install_playwright ?? true) {
     installPlaywright()
   }

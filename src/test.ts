@@ -1,9 +1,9 @@
-import { startClient } from './server'
+import { startMediaPipeClient } from './server'
 
 async function main() {
-  let mediapipe = await startClient({
+  let mediapipe = await startMediaPipeClient({
     port: 8560,
-    headless: true,
+    // headless: false,
   })
 
   mediapipe.attachImageDirection({
@@ -20,7 +20,7 @@ async function main() {
       top: 0.05,
       bottom: 0.18,
     },
-    // rotation: -90,
+    rotation: -45,
     draw_landmarks: true,
   })
   console.log('number of faces:', result.faceLandmarks.length)
