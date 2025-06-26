@@ -121,6 +121,12 @@ interface DetectFaceLandmarksOptions {
   rotation?: number
   /** for debugging, default: false */
   draw_landmarks?: boolean
+  /** for debugging, default: false */
+  draw_bounding_box?: boolean
+  /** for debugging, default: 'red' */
+  draw_style?: string
+  /** for debugging, default: 5 */
+  draw_size?: number
 }
 ```
 
