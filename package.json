@@ -2,10 +2,18 @@
   "name": "mediapipe-nodejs",
   "version": "0.0.0",
   "type": "commonjs",
-  "description": "",
+  "description": "A Node.js library for running MediaPipe models that are typically browser-only. This package uses a local Express (web) server and Playwright (headless browser) to bridge the gap between Node.js and MediaPipe's browser-based APIs.",
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "Beeno Tung <aabbcc1241@yahoo.com.hk> (https://beeno-tung.surge.sh)",
+  "license": "BSD-2-Clause",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/beenotung/mediapipe-nodejs.git"
+  },
+  "homepage": "https://github.com/beenotung/mediapipe-nodejs#readme",
+  "bugs": {
+    "url": "https://github.com/beenotung/mediapipe-nodejs/issues"
+  },
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
