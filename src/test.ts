@@ -25,5 +25,9 @@ async function main() {
   })
   console.log('number of faces:', result.faceLandmarks.length)
   await mediapipe.close()
+
+  if (result.faceLandmarks.length == 0) {
+    throw new Error('no face found')
+  }
 }
 main().catch(e => console.error(e))
