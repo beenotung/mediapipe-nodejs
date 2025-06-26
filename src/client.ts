@@ -45,7 +45,7 @@ export type DetectFaceLandmarksOptions = {
     right: number
     bottom: number
   }
-  /** applied after crop region of interest, multiply of 90 degrees */
+  /** applied after crop region of interest, in degrees */
   rotation?: number
   /** for debugging, default: false */
   draw_landmarks?: boolean
