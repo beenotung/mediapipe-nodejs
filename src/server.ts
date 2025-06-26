@@ -2,11 +2,20 @@ import { execSync } from 'child_process'
 import express from 'express'
 import { Server } from 'http'
 import { dirname, join } from 'path'
+import { Browser, chromium } from 'playwright'
+import type { DetectFaceLandmarksOptions } from './client'
+import { FaceLandmarkerResult } from '@mediapipe/tasks-vision'
+
+export type MediaPipeClient = Awaited<ReturnType<typeof startClient>>
 
 export async function startClient(options: {
   port: number
   /** default: true */
   auto_install_playwright?: boolean
+  /** default: true */
+  headless?: boolean
+  /** auto launch chromium browser if no instance provided */
+  browser?: Browser
 }) {
   if (options.auto_install_playwright ?? true) {
     installPlaywright()
@@ -28,8 +37,25 @@ export async function startClient(options: {
     server.on('error', reject)
   })
 
-  function stop() {
-    server.close()
+  let browser =
+    options.browser ?? (await chromium.launch({ headless: options.headless }))
+  let page = await browser.newPage()
+  await page.goto(`http://localhost:${port}`)
+
+  async function stop() {
+    await page.close()
+    if (!options.browser) {
+      await browser.close()
+    }
+    await new Promise<void>((resolve, reject) => {
+      server.close(err => {
+        if (err) {
+          reject(err)
+        } else {
+          resolve()
+        }
+      })
+    })
   }
 
   function attachImageDirection(options: {
@@ -41,8 +67,18 @@ export async function startClient(options: {
     app.use(options.url_prefix, express.static(options.directory))
   }
 
+  async function detectFaceLandmarks(
+    options: DetectFaceLandmarksOptions,
+  ): Promise<FaceLandmarkerResult> {
+    return page.evaluate(options => {
+      let win = window as any
+      return win.detectFaceLandmarks(options)
+    }, options)
+  }
+
   return {
     attachImageDirection,
+    detectFaceLandmarks,
     stop,
   }
 }
