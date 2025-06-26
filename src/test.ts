@@ -3,7 +3,7 @@ import { startClient } from './server'
 async function main() {
   let mediapipe = await startClient({
     port: 8560,
-    headless: false,
+    headless: true,
   })
 
   mediapipe.attachImageDirection({
@@ -24,5 +24,6 @@ async function main() {
     draw_landmarks: true,
   })
   console.log('number of faces:', result.faceLandmarks.length)
+  await mediapipe.close()
 }
 main().catch(e => console.error(e))
