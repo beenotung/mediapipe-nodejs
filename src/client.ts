@@ -49,6 +49,12 @@ export type DetectFaceLandmarksOptions = {
   rotation?: number
   /** for debugging, default: false */
   draw_landmarks?: boolean
+  /** for debugging, default: false */
+  draw_bounding_box?: boolean
+  /** for debugging, default: 'red' */
+  draw_style?: string
+  /** for debugging, default: 5 */
+  draw_size?: number
 }
 
 async function detectFaceLandmarks(
@@ -103,21 +109,43 @@ async function detectFaceLandmarks(
   }
   let results = faceLandmarker.detect(target)
 
-  if (options.draw_landmarks) {
+  if (options.draw_landmarks || options.draw_bounding_box) {
     let canvas = target as HTMLCanvasElement
     let context = canvas.getContext('2d')!
-    context.strokeStyle = 'red'
-    context.lineWidth = 2
-    context.strokeRect(0, 0, canvas.width, canvas.height)
-    context.fillStyle = 'red'
+    let color = options.draw_style ?? 'red'
+    let size = options.draw_size ?? 5
+
+    context.fillStyle = color
+    context.strokeStyle = color
+    context.lineWidth = size
+
     for (let faceLandmarks of results.faceLandmarks) {
-      for (let landmark of faceLandmarks) {
-        context.fillRect(
-          landmark.x * canvas.width,
-          landmark.y * canvas.height,
-          5,
-          5,
+      if (options.draw_bounding_box) {
+        let xs = faceLandmarks.map(landmark => landmark.x)
+        let ys = faceLandmarks.map(landmark => landmark.y)
+        let min_x = Math.min(...xs)
+        let max_x = Math.max(...xs)
+        let min_y = Math.min(...ys)
+        let max_y = Math.max(...ys)
+        let width = max_x - min_x
+        let height = max_y - min_y
+        context.strokeRect(
+          min_x * canvas.width,
+          min_y * canvas.height,
+          width * canvas.width,
+          height * canvas.height,
         )
+      }
+
+      if (options.draw_landmarks) {
+        for (let landmark of faceLandmarks) {
+          context.fillRect(
+            landmark.x * canvas.width,
+            landmark.y * canvas.height,
+            size,
+            size,
+          )
+        }
       }
     }
   }

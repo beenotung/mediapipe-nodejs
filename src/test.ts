@@ -1,9 +1,11 @@
 import { startMediaPipeClient } from './server'
 
 async function main() {
+  let headless = true
+  // headless = false
   let mediapipe = await startMediaPipeClient({
     port: 8560,
-    // headless: false,
+    headless,
   })
 
   mediapipe.attachImageDirection({
@@ -22,9 +24,14 @@ async function main() {
     },
     rotation: -45,
     draw_landmarks: true,
+    draw_style: '#55ff55',
+    draw_size: 2,
+    draw_bounding_box: true,
   })
   console.log('number of faces:', result.faceLandmarks.length)
-  await mediapipe.close()
+  if (headless) {
+    await mediapipe.close()
+  }
 
   if (result.faceLandmarks.length == 0) {
     throw new Error('no face found')
