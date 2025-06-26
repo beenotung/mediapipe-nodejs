@@ -3,7 +3,6 @@
 A Node.js library for running MediaPipe models that are typically browser-only. This package uses a local Express (web) server and Playwright (headless browser) to bridge the gap between Node.js and MediaPipe's browser-based APIs.
 
 [![npm Package Version](https://img.shields.io/npm/v/mediapipe-nodejs)](https://www.npmjs.com/package/mediapipe-nodejs)
-[![npm Package Downloads](https://img.shields.io/npm/dm/mediapipe-nodejs)](https://www.npmtrends.com/mediapipe-nodejs)
 
 Currently supports:
 
