@@ -13,8 +13,15 @@ More MediaPipe models will be added over time.
 
 ## Features
 
-- Typescript support
-- Isomorphic package: works in Node.js and browsers
+- **Face Landmarker Model** - Detect facial landmarks and features with advanced options:
+  - Custom number of faces to detect
+  - Crop region for area of interest detection
+  - Image rotation support (applied after cropping)
+  - Landmark visualization for debugging
+- **Node.js Support** - Enables MediaPipe models to run in Node.js environments
+- **Custom Image Directory** - Serve images from specified directory with customizable URL paths
+- **Auto-Installation** - Playwright automatically installed and launched, or use existing browser instance
+- **TypeScript Support** - Full type definitions included
 
 ## Installation
 
