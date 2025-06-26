@@ -85,6 +85,8 @@ export async function startMediaPipeClient(
     detectFaceLandmarks,
     stop,
     close: stop,
+    browser,
+    page,
   }
 }
 

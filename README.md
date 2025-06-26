@@ -68,6 +68,7 @@ Complete usage example see [test.ts](./src/test.ts)
 
 ```typescript
 import { FaceLandmarkerResult } from '@mediapipe/tasks-vision'
+import { Browser, Page } from 'playwright'
 
 interface StartMediaPipeClientOptions {
   port: number
@@ -98,6 +99,10 @@ interface MediaPipeClient {
   /** alias: stop, close */
   stop(): Promise<void>
   close(): Promise<void>
+
+  /** for extended reuse */
+  browser: Browser
+  page: Page
 }
 
 interface DetectFaceLandmarksOptions {
