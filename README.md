@@ -42,7 +42,7 @@ async function detectFaces() {
     directory: './uploads',
   })
 
-  // Detect face landmarks
+  // Detect face landmarks and face blendshapes
   const result = await mediapipe.detectFaceLandmarks({
     image_url: '/images/face.jpg',
     num_faces: 1,
@@ -55,6 +55,8 @@ async function detectFaces() {
   await mediapipe.close()
 }
 ```
+
+Complete usage example see [test.ts](./src/test.ts)
 
 ## Typescript Signature
 
