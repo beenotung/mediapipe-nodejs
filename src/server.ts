@@ -80,6 +80,7 @@ export async function startClient(options: {
     attachImageDirection,
     detectFaceLandmarks,
     stop,
+    close: stop,
   }
 }
 
