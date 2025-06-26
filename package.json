@@ -38,7 +38,7 @@
     "dist"
   ],
   "scripts": {
-    "test": "ts-node src/test.ts && tsc --noEmit",
+    "test": "npm run build:client && ts-node src/test.ts && tsc --noEmit",
     "clean": "rimraf dist",
     "build": "npm run build:server && npm run build:client",
     "build:server": "rimraf dist && tsc -p . && rimraf dist/tsconfig.tsbuildinfo",
